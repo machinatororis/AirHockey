@@ -3,6 +3,7 @@
 #include <cmath>
 #include <ctime>
 #include <cstdlib>
+#include <sstream>
 
 int main()
 {
@@ -14,6 +15,8 @@ int main()
     const int gameHeight = 600;
     float ballRadius = 10.f;
     float paddleRadius = 25.f;
+    int rightPaddleScore = 0;
+    int leftPaddleScore = 5;
 
     // Create the window of the application
     sf::RenderWindow window(sf::VideoMode(gameWidth, gameHeight, 32), "SFML Pong");
@@ -63,6 +66,38 @@ int main()
     pauseMessage.setColor(sf::Color::White);
     pauseMessage.setString("Welcome to SFML pong!\nPress space to start the game");
 
+    //Initialize computer score
+    sf::Text computerScore;
+    computerScore.setFont(font);
+    computerScore.setCharacterSize(40);
+    computerScore.setRotation(270);
+    computerScore.setOrigin(20, 20);
+    computerScore.setPosition(gameWidth - 30, gameHeight / 2);
+    computerScore.setColor(sf::Color::Blue);
+    std::ostringstream scoreComputer;
+    scoreComputer << rightPaddleScore;
+    computerScore.setString(scoreComputer.str());
+
+    //Initialize player score
+    sf::Text playerScore;
+    playerScore.setFont(font);
+    playerScore.setCharacterSize(40);
+    playerScore.setRotation(90);
+    playerScore.setOrigin(20, 20);
+    playerScore.setPosition(30, gameHeight / 2);
+    playerScore.setColor(sf::Color::Red);
+    std::ostringstream scorePlayer;
+    scorePlayer << leftPaddleScore;
+    playerScore.setString(scorePlayer.str());
+
+    // Create a sprite for the background
+    sf::Texture backgroundTexture;
+    if (!backgroundTexture.loadFromFile("resources/background.jpg"))
+        return EXIT_FAILURE;
+    sf::Sprite background(backgroundTexture);
+
+
+
     // Define the paddles properties
     sf::Clock AITimer;
     const sf::Time AITime   = sf::seconds(0.1f);
@@ -97,8 +132,8 @@ int main()
                     clock.restart();
 
                     // Reset the position of the paddles and ball
-                    leftPaddle.setPosition(50, gameHeight / 2);
-                    rightPaddle.setPosition(gameWidth - 50, gameHeight / 2);
+                    leftPaddle.setPosition(100, gameHeight / 2);
+                    rightPaddle.setPosition(gameWidth - 100, gameHeight / 2);
                     ball.setPosition(gameWidth / 2, gameHeight / 2);
 
                     // Reset the ball angle
@@ -113,14 +148,18 @@ int main()
         }
 
         // Clear the window
-        window.clear(sf::Color(50, 200, 50));
+        //window.clear(sf::Color(50, 200, 50));
+        window.clear();
 
         if (isPlaying)
         {
             // Draw the paddles and the ball
+            window.draw(background);
             window.draw(leftPaddle);
             window.draw(rightPaddle);
             window.draw(ball);
+            window.draw(computerScore);
+            window.draw(playerScore);
         }
         else
         {
