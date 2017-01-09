@@ -100,7 +100,11 @@ int main()
     const sf::Time AITime   = sf::seconds(0.1f);
     const float paddleSpeed = 400.f;
     float rightPaddleSpeed  = 0.f;
+<<<<<<< HEAD
     const float ballSpeed   = 200.f;
+=======
+    const float ballSpeed   = 200.f;//400
+>>>>>>> origin/master
     float ballAngle         = 0.f; // to be changed later
 
     sf::Clock clock;
@@ -202,10 +206,14 @@ int main()
             ball.move(std::cos(ballAngle) * factor, std::sin(ballAngle) * factor);
 
             // Check collisions between the ball and the screen
+<<<<<<< HEAD
             //if (ball.getPosition().x - ballRadius < 0.f)
             if (((ball.getPosition().x - ballRadius < 0.f) &&
                (ball.getPosition().y - ballRadius > 200.f)) &&
                (ball.getPosition().y - ballRadius < 400.f))
+=======
+            if (ball.getPosition().x - ballRadius < 0.f)
+>>>>>>> origin/master
             {
                 isPlaying = false;
                 pauseMessage.setString("You lost !\nPress space to restart or\nescape to exit");
@@ -214,10 +222,14 @@ int main()
                 scorePlayer << leftPaddleScore;
                 playerScore.setString(scorePlayer.str());
             }
+<<<<<<< HEAD
             //if (ball.getPosition().x + ballRadius > gameWidth)
             if (((ball.getPosition().x + ballRadius > gameWidth) &&
                  (ball.getPosition().y + ballRadius > 200.f)) &&
                  (ball.getPosition().y + ballRadius < 400.f))
+=======
+            if (ball.getPosition().x + ballRadius > gameWidth)
+>>>>>>> origin/master
             {
                 isPlaying = false;
                 pauseMessage.setString("You won !\nPress space to restart or\nescape to exit");
@@ -239,6 +251,7 @@ int main()
                 ball.setPosition(ball.getPosition().x, gameHeight - ballRadius - 0.1f);
             }
 
+<<<<<<< HEAD
             if (((ball.getPosition().x - ballRadius < 0.f) &&
                  (ball.getPosition().y - ballRadius < 200.f)) ||
                  ((ball.getPosition().x - ballRadius < 0.f) &&
@@ -261,6 +274,8 @@ int main()
                 //ball.setPosition(400, 300);
             }
 
+=======
+>>>>>>> origin/master
             // Check the collisions between the ball and the paddles
             // Left Paddle
             if (ball.getPosition().x - ballRadius < leftPaddle.getPosition().x + paddleRadius / 2 &&
