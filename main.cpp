@@ -150,12 +150,12 @@ int main()
 
             // Move the player's paddle
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) &&
-               (leftPaddle.getPosition().y - paddleRadius / 2 > 5.f))
+               (leftPaddle.getPosition().y - paddleRadius / 2 > 20.f))
             {
                 leftPaddle.move(0.f, -paddleSpeed * deltaTime);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) &&
-               (leftPaddle.getPosition().y + paddleRadius / 2 < gameHeight - 5.f))
+               (leftPaddle.getPosition().y + paddleRadius / 2 < gameHeight - 20.f))
             {
                 leftPaddle.move(0.f, paddleSpeed * deltaTime);
             }
@@ -173,8 +173,8 @@ int main()
             }
 
             // Move the computer's paddle
-            if (((rightPaddleSpeed < 0.f) && (rightPaddle.getPosition().y - paddleRadius / 2 > 5.f)) ||
-                ((rightPaddleSpeed > 0.f) && (rightPaddle.getPosition().y + paddleRadius / 2 < gameHeight - 5.f)))
+            if (((rightPaddleSpeed < 0.f) && (rightPaddle.getPosition().y - paddleRadius / 2 > 20.f)) ||
+                ((rightPaddleSpeed > 0.f) && (rightPaddle.getPosition().y + paddleRadius / 2 < gameHeight - 20.f)))
             {
                 rightPaddle.move(0.f, rightPaddleSpeed * deltaTime);
             }
@@ -202,7 +202,6 @@ int main()
             ball.move(std::cos(ballAngle) * factor, std::sin(ballAngle) * factor);
 
             // Check collisions between the ball and the screen
-            //if (ball.getPosition().x - ballRadius < 0.f)
             if (((ball.getPosition().x - ballRadius < 0.f) &&
                (ball.getPosition().y - ballRadius > 200.f)) &&
                (ball.getPosition().y - ballRadius < 400.f))
@@ -216,7 +215,6 @@ int main()
                 playerScore.setString(scorePlayer.str());
             }
 
-            //if (ball.getPosition().x + ballRadius > gameWidth)
             if (((ball.getPosition().x + ballRadius > gameWidth) &&
                  (ball.getPosition().y + ballRadius > 200.f)) &&
                  (ball.getPosition().y + ballRadius < 400.f))
@@ -233,14 +231,14 @@ int main()
             if (ball.getPosition().y - ballRadius < 0.f)
             {
                 ballSound.play();
-                ballAngle = -ballAngle;
+                ballAngle = 2 * pi - ballAngle;
                 ball.setPosition(ball.getPosition().x, ballRadius + 0.1f);
             }
 
             if (ball.getPosition().y + ballRadius > gameHeight)
             {
                 ballSound.play();
-                ballAngle = -ballAngle;
+                ballAngle = 2 * pi - ballAngle;
                 ball.setPosition(ball.getPosition().x, gameHeight - ballRadius - 0.1f);
             }
 
@@ -250,9 +248,11 @@ int main()
                  (ball.getPosition().y - ballRadius > 400.f)))
             {
                 ballSound.play();
-                ballAngle = -ballAngle;
-                ball.setPosition(400, 300);
-                //ball.setPosition(ballRadius + 0.1f, ball.getPosition().y);
+                if ((ballAngle > 0) && (ballAngle < pi))
+                    ballAngle = pi - ballAngle;
+                else
+                    ballAngle = 3 * pi - ballAngle;
+                ball.setPosition(ballRadius + 0.1f, ball.getPosition().y);
             }
 
             if (((ball.getPosition().x + ballRadius > gameWidth) &&
@@ -261,9 +261,11 @@ int main()
                  (ball.getPosition().y + ballRadius > 400.f)))
             {
                 ballSound.play();
-                ballAngle = -ballAngle;
-                //ball.setPosition(gameWidth - ballRadius - 0.1f, ball.getPosition().y);
-                ball.setPosition(400, 300);
+                if ((ballAngle > 0) && (ballAngle < pi))
+                    ballAngle = pi - ballAngle;
+                else
+                    ballAngle = 3 * pi - ballAngle;
+                ball.setPosition(gameWidth - ballRadius - 0.1f, ball.getPosition().y);
             }
 
             // Check the collisions between the ball and the paddles
