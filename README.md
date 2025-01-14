@@ -1,14 +1,14 @@
-# AirHockey
-Воздушный хоккей
+# AirHockey 🏒
 
-Используется:
+The **AirHockey** project is a 2D air hockey game developed using the **C++** programming language and the **SFML 2.1** framework. The game lets two players compete in a classic air hockey match, with scores displayed on each player's goal area. Every goal scored increases the player's score by 1.
 
-    SFML 2.1 framework
-    
-    IDE: Qt Creator
+## 🛠 Key Technologies:
+- **C++**: Main programming language for game logic.  
+- **SFML**: Framework used for graphics rendering and handling input.  
+- **Qt Creator**: Integrated Development Environment (IDE) used for building and managing the project.
 
-Текущий счет пользователя отображается на его воротах.
-Счет начинается с 0.
-Каждый гол будет увеличивать счет на 1.
+## 🔧 Versions:
+- **SFML**: 2.1  
+- **IDE**: Qt Creator
 
 ![screenshot of sample](http://raw.github.com/MashaLypa/AirHockey/master/AirHockey.png)
